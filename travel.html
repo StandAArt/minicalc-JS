@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Travel Calculator</title>
+  </head>
+  <body onload="showCountries(); showTime()">
+<div id="calculator">
+  <select onchange="estimatePrice()">
+<option> -- choose a country --</option>
+  </select>
+  <hr>
+  <select onchange="estimatePrice()">
+<option>-- choose time --</option>
+  </select>
+  <hr>
+  <input type="text" placeholder="travel price 0.00 EURO">
+</div>
+
+<script>
+  var countries = [
+  "Moldova",
+  "Romania",
+  "Ucraine",
+  "Russia",
+  "Belarous"
+  ];
+
+  var prices = [
+    5,   //"Moldova",
+    15,  //"Romania",
+    12,  //"Ucraine",
+    20,  //"Russia",
+    25,  //"Belarous"
+  ];
+
+  function showCountries(){
+    var select_1 = document.querySelector('#calculator select:first-child');
+    for(var i = 0; i < countries.length; i++){
+      select_1.innerHTML += "<option value='"+i+"'>" + countries[i] + "</option>";
+    }
+  }
+
+  function showTime(){
+    var select_2 = document.querySelector('#calculator select:nth-child(3)');
+    for(var n = 0; n <= 23; n++){
+      if(n < 10){
+      select_2.innerHTML += "<option>0" + n + ":00</option>";
+    }
+    else{
+      select_2.innerHTML += "<option>" + n + ":00</option>";
+    }
+    }
+  }
+
+
+  function estimatePrice(){
+      var select = document.querySelector('#calculator select:first-child');
+      var select1= document.querySelector('#calculator select:nth-child(3)')
+      var selectedCountry  = select.value;
+      var selectedTime     = select1.value;
+      console.log(selectedCountry);
+      var input_r = document.querySelector('#calculator input');
+      if(selectedCountry !== "-- choose a country --"){
+      if(selectedTime == "-- choose time --" || parseInt(selectedTime) <= 7){
+      input_r.value = prices[selectedCountry] + ".00 EURO";
+       }
+       else if(parseInt(selectedTime) <= 17){
+       input_r.value = +prices[selectedCountry]*2 + ".00 EURO";
+        }
+        else{
+        input_r.value = +prices[selectedCountry]*3 + ".00 EURO";
+         }
+       }
+  }
+
+
+
+  //Dom. Zadanie исходя из второго селекта поменять стоимость на 30% ниже например
+</script>
+  </body>
+</html>
